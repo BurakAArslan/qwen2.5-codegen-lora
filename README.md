@@ -63,6 +63,7 @@ CodeGen/
 ├── requirements.txt
 ├── README.md
 └── REPORT.md
+'''
 
 ## Methodology
 
@@ -74,7 +75,7 @@ CodeGen/
 
 The base model remains **frozen** during fine-tuning.
 
----
+
 
 ## Fine-Tuning Strategy
 
