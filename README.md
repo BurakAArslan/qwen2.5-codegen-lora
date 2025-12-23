@@ -36,6 +36,83 @@ Instruction-tuned code models can be sensitive to the **structure** and
 - Which training strategy yields better real-world coding performance  
 
 ---
+## Methodology
+
+### Base Model
+
+- **Model:** Qwen/Qwen2.5-Coder-1.5B-Instruct  
+- **Architecture:** Transformer-based causal language model  
+- **Pre-training:** Large-scale code and instruction datasets  
+
+The base model remains **frozen** during fine-tuning.
+
+---
+
+## Fine-Tuning Strategy
+
+LoRA adapters are applied to the attention layers of the base model.  
+All hyperparameters—including **learning rate, batch size, number of epochs,
+and LoRA rank**—are kept **identical across both variants** to ensure
+experimental fairness.
+
+---
+
+## Dataset Splits
+
+Each dataset is split into:
+
+- **Train**
+- **Validation**
+- **Test**
+
+Validation loss is monitored during training; however, **checkpoint selection
+is based on benchmark performance**, not training loss alone.
+
+---
+
+## Evaluation Setup
+
+- **Benchmark:** LiveCodeBench  
+- **Platform:** AtCoder  
+- **Difficulty:** Easy  
+- **Number of Problems:** 41  
+
+This subset is selected to match the evaluation guidelines provided in the
+project specification.
+
+---
+
+## Metric
+
+### Pass@1
+
+The percentage of problems for which the model generates a **fully correct
+solution on the first attempt**.
+
+This metric reflects real-world usage, where only a single generated solution
+is typically evaluated.
+
+---
+
+## Checkpoint Evaluation
+
+Multiple checkpoints are produced during training.  
+Each checkpoint is evaluated **independently** on the same benchmark set.  
+The best checkpoint is selected as the one with the **highest Pass@1 score**.
+
+---
+
+## Results
+
+The models were evaluated on **41 AtCoder Easy problems** using the Pass@1 metric.
+
+| Model               | Best Checkpoint              | Pass@1 (%) | Solved |
+|---------------------|------------------------------|------------|--------|
+| deep_instruction    | checkpoint-step-800-epoch-3  | 36.6       | 15 / 41 |
+| diverse_instruction | checkpoint-step-852-epoch-3  | 29.3       | 12 / 41 |
+
+Overall, the **deep_instruction** model consistently outperformed the
+**diverse_instruction** model under identical evaluation settings.
 
 ## Repository Structure
 
@@ -63,42 +140,4 @@ CodeGen/
 ├── requirements.txt
 ├── README.md
 
----
-METHODOLOGY
-Base Model
-Model: Qwen/Qwen2.5-Coder-1.5B-Instruct
-Architecture: Transformer-based causal language model
-Pre-training: Large-scale code and instruction datasets
-The base model remains frozen during fine-tuning.
 
-FINE-TUNING STRATEGY
-LoRA adapters are applied to the attention layers of the base model. All hyperparameters (learning rate, batch size, number of epochs, LoRA rank) are kept identical across both variants to ensure experimental fairness. 
-
-DATASET SPLITS
-Each dataset is split into:
-Train
-Validation
-Test
-
-Validation loss is monitored during training, but checkpoint selection is based on benchmark performance, not training loss alone.
-
-EVALUATION SETUP
-Benchmark: LiveCodeBench
-Platform: AtCoder
-Difficulty: Easy
-Number of Problems: 41
-This subset is selected to match the evaluation guidelines provided in the project specification.
-
-METRIC
-Pass@1:
-The percentage of problems for which the model generates a fully correct solution on the first attempt.
-This metric reflects real-world usage, where only a single generated solution is typically evaluated.
-
-CHECKPOINT EVALUATION
-Multiple checkpoints are produced during training.
-Each checkpoint is evaluated independently on the same benchmark set.
-The best checkpoint is selected as the one with the highest Pass@1 score.
-
-
-RESULT
-The models were evaluated on 41 AtCoder Easy problems using the Pass@1 metric. The deep_instruction model achieved its best performance at checkpoint-step-800-epoch-3, with a 36.6% Pass@1 (15/41 solved). The diverse_instruction model showed improvement only at later checkpoints, reaching its best result at checkpoint-step-852-epoch-3 with 29.3% Pass@1 (12/41 solved). Overall, the deep_instruction model consistently outperformed the diverse_instruction model under identical evaluation settings.
