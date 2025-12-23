@@ -1,10 +1,10 @@
-LoRA Deep vs Diverse Fine-Tuning on Qwen2.5-Coder
+#LoRA Deep vs Diverse Fine-Tuning on Qwen2.5-Coder
 
 This repository contains a comparative study of LoRA-based fine-tuning on the Qwen/Qwen2.5-Coder-1.5B-Instruct model using two different instruction-style datasets: Deep Instruction and Diverse Instruction.
 The goal is to analyze how dataset characteristics affect code generation performance and to identify the best-performing checkpoint using a standardized benchmark.
 
 
-PROJECT OVERWIEV
+##PROJECT OVERWIEV
 
 Base Model: Qwen/Qwen2.5-Coder-1.5B-Instruct
 Fine-tuning Method: LoRA (Low-Rank Adaptation)
