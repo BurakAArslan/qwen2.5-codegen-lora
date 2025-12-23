@@ -1,9 +1,0 @@
-torch==2.4.0
-transformers>=4.45.0
-accelerate>=0.34.0
-huggingface_hub>=0.24.0
-safetensors
-bitsandbytes
-datasets
-peft
-trl>=0.9.6
