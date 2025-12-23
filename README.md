@@ -7,7 +7,6 @@ The goal is to analyze how dataset characteristics affect code generation perfor
 Project Overview
 
 Base Model: Qwen/Qwen2.5-Coder-1.5B-Instruct
-
 Fine-tuning Method: LoRA (Low-Rank Adaptation)
 
 Training Variants:
@@ -23,3 +22,14 @@ Evaluation Subset: AtCoder – Easy (41 problems)
 Evaluation Metric: Pass@1
 
 Both models are fine-tuned from the same base model, using identical training hyperparameters, and evaluated under exactly the same benchmark conditions to ensure a fair comparison.
+
+Motivation
+
+Instruction-tuned code models can be sensitive to the structure and diversity of training data.
+This project investigates:
+
+Whether deep, step-by-step instruction-style data improves reasoning accuracy
+
+Whether diverse instruction formulations improve generalization
+
+Which training strategy yields better real-world coding performance
